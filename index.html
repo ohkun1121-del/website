@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社O-kun | 徳島大学発 学生ベンチャー</title>
+    <meta name="description" content="徳島大学の学生によるベンチャー企業、株式会社O-kunの公式サイト。メディア運営、SNS採用支援、スマホ教室を展開。">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #334155;
+            background-color: #f8fafc;
+        }
+        
+        .font-eng { font-family: 'Montserrat', sans-serif; }
+        .text-navy { color: #0f172a; }
+        .bg-navy { background-color: #0f172a; }
+        
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Animation Classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Modal Transitions */
+        .modal {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s;
+            visibility: hidden;
+            opacity: 0;
+        }
+        .modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-content {
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 bg-white/90 backdrop-blur-md border-b border-gray-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo: Text/Icon -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <!-- ロゴ画像の設定: index.htmlと同じ場所に image.png を置いてください -->
+                    <!-- 画像がない場合は自動でテキストロゴを表示する仕組み -->
+                    <img src="image.png" 
+                         alt="株式会社O-kun ロゴ" 
+                         class="h-16 w-16 object-contain rounded-full transition-transform group-hover:scale-105"
+                         onload="document.getElementById('fallback-logo').style.display='none';"
+                         onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='flex';">
+                    
+                    <!-- Fallback Logo (Text Base) -->
+                    <div id="fallback-logo" class="hidden items-center gap-2">
+                        <span class="bg-navy text-white w-10 h-10 flex items-center justify-center rounded-lg font-eng text-xl">O</span>
+                    </div>
+
+                    <span class="text-xl font-bold text-navy tracking-tight hidden sm:block">株式会社O-kun</span>
+                </a>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-sm font-bold text-gray-600 hover:text-navy transition-colors">私たちについて</a>
+                    <a href="#service" class="text-sm font-bold text-gray-600 hover:text-navy transition-colors">事業内容</a>
+                    <a href="#company" class="text-sm font-bold text-gray-600 hover:text-navy transition-colors">会社概要</a>
+                    <a href="#contact" class="bg-navy text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-900 transition-all shadow-lg shadow-blue-900/20 transform hover:-translate-y-0.5">
+                        お問い合わせ
+                    </a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn" class="md:hidden p-2 text-gray-600">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#about" class="block px-4 py-3 rounded-lg hover:bg-gray-50 font-bold text-gray-700">私たちについて</a>
+                <a href="#service" class="block px-4 py-3 rounded-lg hover:bg-gray-50 font-bold text-gray-700">事業内容</a>
+                <a href="#company" class="block px-4 py-3 rounded-lg hover:bg-gray-50 font-bold text-gray-700">会社概要</a>
+                <a href="#contact" class="block px-4 py-3 rounded-lg bg-navy text-white text-center font-bold">お問い合わせ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-24">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop" alt="Students working together" class="w-full h-full object-cover">
+            <!-- Overlay darkened for better text readability -->
+            <div class="absolute inset-0 bg-navy/90 backdrop-blur-[1px]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="fade-up">
+                <span class="inline-block py-1 px-4 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-sm font-eng">
+                    TOKUSHIMA UNIVERSITY STUDENT VENTURE
+                </span>
+                
+                <h1 class="text-5xl md:text-7xl lg:text-9xl font-black text-white tracking-tight leading-none mb-6 drop-shadow-lg">
+                    株式会社<br class="md:hidden">O-kun
+                </h1>
+                <!-- Changed text color to white and added drop-shadow for readability -->
+                <p class="text-xl md:text-3xl text-white font-bold mb-8 tracking-wide drop-shadow-md">
+                    現役徳島大学生による<br class="md:hidden">挑戦と革新。
+                </p>
+                
+                <p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-300 leading-relaxed font-medium mb-12">
+                    デジタルネイティブ世代の感性と行動力で、<br class="hidden md:block">
+                    地域社会に新しい価値を創造します。
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#service" class="px-8 py-4 bg-white text-navy rounded-full font-bold text-lg hover:bg-blue-50 transition-all shadow-xl flex items-center justify-center gap-2">
+                        事業内容を見る <i data-lucide="arrow-down" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#contact" class="px-8 py-4 bg-transparent border border-white/30 text-white rounded-full font-bold text-lg hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+                        お問い合わせ <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mission Section -->
+    <section id="mission" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-blue-600 font-bold tracking-widest uppercase mb-3 font-eng">MISSION</h2>
+                <p class="text-4xl md:text-5xl font-black text-navy leading-tight">
+                    「わからない」を<br class="md:hidden">「できる」に変える。
+                </p>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-8 rounded-full"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center fade-up delay-100">
+                <div class="text-lg text-gray-600 leading-relaxed space-y-6">
+                    <p>
+                        デジタル技術の進化は、私たちの生活を豊かにする一方で、その変化の速さに戸惑う人々や企業を生み出しています。
+                    </p>
+                    <p>
+                        株式会社O-kunは、デジタルネイティブである学生の強みを活かし、その「差」を埋める架け橋となります。
+                        企業のDX推進から、シニア世代のスマホ活用、そして学生への情報伝達まで。
+                    </p>
+                    <p class="font-bold text-navy">
+                        テクノロジーの恩恵を、徳島のすべての人へ。
+                    </p>
+                </div>
+                <div class="relative h-80 rounded-3xl overflow-hidden shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" alt="Connecting people" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-blue-900/10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1 fade-up">
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop" alt="Meeting" class="rounded-3xl shadow-xl w-full h-auto">
+                </div>
+                <div class="order-1 md:order-2 fade-up delay-100">
+                    <h2 class="text-blue-600 font-bold tracking-widest uppercase mb-3 font-eng">WHO WE ARE</h2>
+                    <h3 class="text-3xl md:text-4xl font-black text-navy mb-6">
+                        学生だからこそできる、<br>
+                        忖度なしの課題解決。
+                    </h3>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        私たちはビジネス経験豊富な大企業ではありません。しかし、だからこそ「常識」にとらわれない発想と、デジタルツールを空気のように使いこなす「直感」があります。
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-navy font-bold">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600"><i data-lucide="zap" class="w-5 h-5"></i></div>
+                            スピード感のある意思決定
+                        </li>
+                        <li class="flex items-center gap-3 text-navy font-bold">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
+                            Z世代のリアルな感覚
+                        </li>
+                        <li class="flex items-center gap-3 text-navy font-bold">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600"><i data-lucide="users" class="w-5 h-5"></i></div>
+                            地域に根ざしたネットワーク
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Section -->
+    <section id="service" class="py-32 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 fade-up">
+                <h2 class="text-blue-600 font-bold tracking-widest uppercase mb-3 font-eng">OUR SERVICE</h2>
+                <p class="text-4xl md:text-5xl font-black text-navy">3つのコア事業</p>
+                <p class="mt-4 text-gray-500">それぞれの事業がシナジーを生み出し、徳島の未来をつなぎます。</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-10">
+                <!-- Service 1: CoNECT -->
+                <div class="group relative rounded-[2rem] overflow-hidden shadow-xl bg-white fade-up delay-100 cursor-pointer transition-all hover:-translate-y-2 border border-gray-100 flex flex-col" onclick="openModal('modal-conect')">
+                    <div class="h-60 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <span class="bg-blue-600 text-white px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider mb-2 inline-block font-eng">Media</span>
+                            <h3 class="text-2xl font-bold font-eng">CoNECT</h3>
+                        </div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col">
+                        <h4 class="text-lg font-bold text-navy mb-2">学生向けメディア運営</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-grow">
+                            徳島大学の学生の大多数をカバーする、学生向けメディア。LINEを活用した「忘れさせない」アプローチで、企業の認知拡大と採用を強力に支援します。
+                        </p>
+                        <span class="inline-flex items-center text-blue-600 font-bold text-sm group-hover:underline">
+                            詳細を見る <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Service 2: SNS Recruitment (Updated Content) -->
+                <div class="group relative rounded-[2rem] overflow-hidden shadow-xl bg-white fade-up delay-200 cursor-pointer transition-all hover:-translate-y-2 border border-gray-100 flex flex-col" onclick="openModal('modal-sns')">
+                    <div class="h-60 overflow-hidden relative">
+                        <!-- Changed Image to Instagram/Smartphone vibe -->
+                        <img src="https://images.unsplash.com/photo-1611262588024-d12430b98920?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-purple-900/90 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <span class="bg-purple-600 text-white px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider mb-2 inline-block font-eng">Recruiting</span>
+                            <h3 class="text-2xl font-bold">SNS採用支援</h3>
+                        </div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col">
+                        <h4 class="text-lg font-bold text-navy mb-2">新卒採用特化コンサル</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-grow">
+                            大学生ならではのネットワークを活かし、特に<span class="font-bold text-purple-600">新卒採用</span>に圧倒的な強みを発揮。「Z世代視点」×「SNS運用」で採用を変えます。
+                        </p>
+                        <span class="inline-flex items-center text-purple-600 font-bold text-sm group-hover:underline">
+                            詳細を見る <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Service 3: Smartphone School -->
+                <div class="group relative rounded-[2rem] overflow-hidden shadow-xl bg-white fade-up delay-300 cursor-pointer transition-all hover:-translate-y-2 border border-gray-100 flex flex-col" onclick="openModal('modal-school')">
+                    <div class="h-60 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-emerald-900/90 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <span class="bg-emerald-600 text-white px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider mb-2 inline-block font-eng">Education</span>
+                            <h3 class="text-2xl font-bold">スマホ教室事業</h3>
+                        </div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col">
+                        <h4 class="text-lg font-bold text-navy mb-2">地域デジタル活用支援</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-grow">
+                            デジタルデバイド解消を目指す、地域密着型のICT教育。シニア世代のデジタル活用を促進し、地域コミュニティの活性化に貢献します。
+                        </p>
+                        <span class="inline-flex items-center text-emerald-600 font-bold text-sm group-hover:underline">
+                            詳細を見る <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flow Section -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-blue-600 font-bold tracking-widest uppercase mb-3 font-eng">WORK FLOW</h2>
+                <p class="text-3xl md:text-4xl font-black text-navy">ご相談から導入までの流れ</p>
+            </div>
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="relative bg-white p-8 rounded-2xl shadow-sm fade-up delay-100">
+                    <div class="text-6xl font-black text-slate-100 absolute top-4 right-4 font-eng">01</div>
+                    <h4 class="text-xl font-bold text-navy mb-3 relative z-10">お問い合わせ</h4>
+                    <p class="text-gray-600 text-sm relative z-10">
+                        フォームよりお気軽にご連絡ください。担当者より2営業日以内に返信いたします。
+                    </p>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative bg-white p-8 rounded-2xl shadow-sm fade-up delay-200">
+                    <div class="text-6xl font-black text-slate-100 absolute top-4 right-4 font-eng">02</div>
+                    <h4 class="text-xl font-bold text-navy mb-3 relative z-10">ヒアリング</h4>
+                    <p class="text-gray-600 text-sm relative z-10">
+                        御社の課題や目的を丁寧に伺います。オンラインまたは対面での実施が可能です。
+                    </p>
+                </div>
+                <!-- Step 3 -->
+                <div class="relative bg-white p-8 rounded-2xl shadow-sm fade-up delay-300">
+                    <div class="text-6xl font-black text-slate-100 absolute top-4 right-4 font-eng">03</div>
+                    <h4 class="text-xl font-bold text-navy mb-3 relative z-10">ご提案</h4>
+                    <p class="text-gray-600 text-sm relative z-10">
+                        課題解決に最適なプラン（SNS、CoNECT掲載、イベント連携など）をご提示します。
+                    </p>
+                </div>
+                <!-- Step 4 -->
+                <div class="relative bg-white p-8 rounded-2xl shadow-sm fade-up delay-300 border-b-4 border-blue-500">
+                    <div class="text-6xl font-black text-slate-100 absolute top-4 right-4 font-eng">04</div>
+                    <h4 class="text-xl font-bold text-navy mb-3 relative z-10">運用開始</h4>
+                    <p class="text-gray-600 text-sm relative z-10">
+                        ご契約後、プロジェクトを開始します。定期的なレポート提出も行います。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-blue-600 font-bold tracking-widest uppercase mb-3 font-eng">FAQ</h2>
+                <p class="text-3xl font-black text-navy">よくあるご質問</p>
+            </div>
+            <div class="space-y-6 fade-up delay-100">
+                <div class="border border-gray-200 rounded-xl p-6 hover:border-blue-300 transition-colors">
+                    <h4 class="font-bold text-navy flex items-center gap-3"><span class="text-blue-600 font-eng">Q.</span> 学生だけで運営しているのですか？</h4>
+                    <p class="text-gray-600 mt-3 text-sm leading-relaxed pl-6">
+                        はい、運営メンバーは全員徳島大学の現役学生ですが、法人（株式会社）として登記しており、責任を持って業務を遂行いたします。契約書等の締結も通常通り可能です。
+                    </p>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-6 hover:border-blue-300 transition-colors">
+                    <h4 class="font-bold text-navy flex items-center gap-3"><span class="text-blue-600 font-eng">Q.</span> 予算が限られているのですが相談可能ですか？</h4>
+                    <p class="text-gray-600 mt-3 text-sm leading-relaxed pl-6">
+                        もちろんです。学生ベンチャーならではの柔軟なプランニングが可能です。まずはご予算感をお聞かせください。
+                    </p>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-6 hover:border-blue-300 transition-colors">
+                    <h4 class="font-bold text-navy flex items-center gap-3"><span class="text-blue-600 font-eng">Q.</span> 契約期間の縛りはありますか？</h4>
+                    <p class="text-gray-600 mt-3 text-sm leading-relaxed pl-6">
+                        いいえ、単発（スポット）でのご依頼も可能です。1ヶ月からお試しいただけますが、効果を最大化するために3ヶ月以上の中長期的な運用をお勧めしております。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Info -->
+    <section id="company" class="py-24 bg-navy text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-up">
+                <h2 class="text-blue-300 font-bold tracking-widest uppercase mb-3 font-eng">COMPANY</h2>
+                <p class="text-3xl font-black">会社概要</p>
+            </div>
+            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 md:p-12 fade-up delay-100 border border-white/10">
+                <div class="space-y-6">
+                    <div class="flex flex-col md:flex-row border-b border-white/10 pb-6">
+                        <span class="w-40 font-bold text-gray-400 mb-2 md:mb-0">会社名</span><span class="font-bold">株式会社O-kun</span>
+                    </div>
+                    <div class="flex flex-col md:flex-row border-b border-white/10 pb-6">
+                        <span class="w-40 font-bold text-gray-400 mb-2 md:mb-0">代表者</span>
+                        <div class="font-bold">代表取締役 池田 大智<br>代表取締役 楠本 冴伊</div>
+                    </div>
+                    <div class="flex flex-col md:flex-row border-b border-white/10 pb-6">
+                        <span class="w-40 font-bold text-gray-400 mb-2 md:mb-0">設立</span><span class="font-medium">2025年9月17日</span>
+                    </div>
+                    <div class="flex flex-col md:flex-row">
+                        <span class="w-40 font-bold text-gray-400 mb-2 md:mb-0">事業内容</span>
+                        <div class="font-medium space-y-1">
+                            <p>・学生向けメディア「CoNECT」の運営</p>
+                            <p>・SNS採用支援 / 運用コンサルティング</p>
+                            <p>・地域密着型スマホ教室の運営</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-up">
+                <h2 class="text-blue-600 font-bold tracking-widest uppercase mb-3 font-eng">CONTACT</h2>
+                <h2 class="text-3xl md:text-4xl font-black mb-4 text-navy">お問い合わせ</h2>
+                <p class="text-gray-600">CoNECTへの掲載、SNS運用の相談、スマホ教室について<br>お気軽にご連絡ください。</p>
+            </div>
+
+            <div class="bg-slate-50 p-8 md:p-10 rounded-3xl border border-gray-100 fade-up delay-100">
+                <form action="mailto:ohkun1121@gmail.com" method="post" enctype="text/plain" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold text-navy mb-2">貴社名 / お名前 <span class="text-red-500">*</span></label>
+                        <input type="text" name="name" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-navy focus:outline-none focus:border-blue-500 transition-colors" placeholder="株式会社〇〇 / 徳島 太郎">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-navy mb-2">メールアドレス <span class="text-red-500">*</span></label>
+                        <input type="email" name="email" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-navy focus:outline-none focus:border-blue-500 transition-colors" placeholder="sample@email.com">
+                    </div>
+                    <div>
+                         <label class="block text-sm font-bold text-navy mb-2">お問い合わせ種別</label>
+                         <select name="category" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-navy focus:outline-none focus:border-blue-500 transition-colors">
+                             <option value="CoNECTについて">CoNECTについて</option>
+                             <option value="SNS採用支援について">SNS採用支援について</option>
+                             <option value="スマホ教室について">スマホ教室について</option>
+                             <option value="その他">その他</option>
+                         </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-navy mb-2">お問い合わせ内容 <span class="text-red-500">*</span></label>
+                        <textarea name="message" rows="5" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-navy focus:outline-none focus:border-blue-500 transition-colors" placeholder="ご用件をご記入ください"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-navy text-white font-bold py-4 rounded-xl hover:bg-blue-900 transition-colors flex items-center justify-center gap-2 shadow-lg">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                        メールを送信する
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 py-12 border-t border-slate-900 text-center">
+        <div class="flex items-center justify-center gap-2 mb-6">
+            <span class="bg-white text-navy w-8 h-8 flex items-center justify-center rounded-lg font-eng font-bold">O</span>
+            <span class="text-white font-bold font-eng text-xl">O-kun</span>
+        </div>
+        <div class="flex justify-center gap-6 mb-8 text-sm text-slate-400">
+            <a href="#about" class="hover:text-white transition-colors">私たちについて</a>
+            <a href="#service" class="hover:text-white transition-colors">事業内容</a>
+            <a href="#company" class="hover:text-white transition-colors">会社概要</a>
+            <a href="#contact" class="hover:text-white transition-colors">お問い合わせ</a>
+        </div>
+        <p class="text-slate-600 text-xs font-medium font-eng">© 2025 O-kun Inc. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Modals (Remain unchanged for functionality) -->
+    <!-- Modal: CoNECT -->
+    <div id="modal-conect" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" onclick="closeModal('modal-conect')"></div>
+        <div class="modal-content bg-white w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl relative z-10 shadow-2xl">
+            <div class="sticky top-0 bg-white/95 backdrop-blur z-20 px-8 py-6 border-b border-gray-100 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-navy flex items-center gap-3">
+                    <span class="w-3 h-8 bg-blue-600 rounded-full"></span>
+                    CoNECT <span class="text-sm font-normal text-gray-500 bg-gray-100 px-3 py-1 rounded-full">徳島大学生 最強メディア</span>
+                </h2>
+                <button onclick="closeModal('modal-conect')" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i data-lucide="x" class="w-6 h-6 text-gray-500"></i>
+                </button>
+            </div>
+            <div class="p-8 space-y-12">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-3xl font-black text-navy mb-6 leading-tight">1,200人以上の学生に<br><span class="text-blue-600">「忘れさせない」</span>アプローチ</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-100 p-2 rounded-lg text-blue-600 mt-1"><i data-lucide="users" class="w-6 h-6"></i></div>
+                                <div><h4 class="font-bold text-lg text-navy">圧倒的なリーチ力</h4><p class="text-gray-600 text-sm">徳島大学の学生1,200人以上が登録。大多数をカバー。</p></div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-100 p-2 rounded-lg text-blue-600 mt-1"><i data-lucide="smartphone" class="w-6 h-6"></i></div>
+                                <div><h4 class="font-bold text-lg text-navy">ポケットに直行</h4><p class="text-gray-600 text-sm">LINE通知で情報を確実に届け、見逃しを防ぎます。</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 rounded-2xl p-8 border border-blue-100 text-center">
+                        <h4 class="font-bold text-navy mb-4">月4回配信で「記憶」に残す</h4>
+                        <p class="text-gray-600 text-sm mb-4">忘却曲線に基づき、最適なタイミングで情報を届けます。</p>
+                        <div class="flex justify-center gap-2">
+                            <span class="bg-white px-3 py-1 rounded shadow-sm text-xs font-bold">DAY1</span>
+                            <span class="bg-white px-3 py-1 rounded shadow-sm text-xs font-bold">DAY2</span>
+                            <span class="bg-white px-3 py-1 rounded shadow-sm text-xs font-bold">DAY7</span>
+                            <span class="bg-white px-3 py-1 rounded shadow-sm text-xs font-bold">DAY30</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-black text-navy mb-4">料金プラン</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse bg-white rounded-xl shadow-sm overflow-hidden text-sm">
+                            <thead class="bg-navy text-white"><tr><th class="p-3 text-left">プラン</th><th class="p-3">単発</th><th class="p-3">3ヶ月</th><th class="p-3">年間</th></tr></thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr><td class="p-3 font-bold text-navy">定着スタンダード</td><td class="p-3 text-center">6万円</td><td class="p-3 text-center bg-blue-50 text-blue-700 font-bold">15万円</td><td class="p-3 text-center">60万円</td></tr>
+                                <tr><td class="p-3 font-bold text-navy">リッチメッセージ</td><td class="p-3 text-center">7万円</td><td class="p-3 text-center bg-blue-50 text-blue-700 font-bold">17万円</td><td class="p-3 text-center">70万円</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="text-center"><a href="#contact" onclick="closeModal('modal-conect')" class="inline-block px-10 py-4 bg-navy text-white rounded-full font-bold shadow-xl hover:bg-blue-900">お問い合わせ</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: SNS Recruitment -->
+    <div id="modal-sns" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" onclick="closeModal('modal-sns')"></div>
+        <div class="modal-content bg-white w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl relative z-10 shadow-2xl">
+            <div class="sticky top-0 bg-white/95 backdrop-blur z-20 px-8 py-6 border-b border-gray-100 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-navy flex items-center gap-3">
+                    <span class="w-3 h-8 bg-purple-600 rounded-full"></span>
+                    SNS採用支援 <span class="text-sm font-normal text-gray-500 bg-gray-100 px-3 py-1 rounded-full">運用コンサルティング</span>
+                </h2>
+                <button onclick="closeModal('modal-sns')" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i data-lucide="x" class="w-6 h-6 text-gray-500"></i>
+                </button>
+            </div>
+            <div class="p-8 space-y-12">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-3xl font-black text-navy mb-6 leading-tight">
+                            大学生ネットワークで<br>
+                            <span class="text-purple-600">「新卒採用」</span>を制す。
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            一般的な求人媒体では届かない層へ、現役学生のネットワークを通じてダイレクトにアプローチ。
+                            採用コストを抑えながら、ミスマッチのない新卒採用を実現します。
+                        </p>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 text-navy font-bold">
+                                <i data-lucide="check-circle" class="text-purple-600 w-5 h-5"></i> 認知度向上 (Instagram/TikTok)
+                            </div>
+                            <div class="flex items-center gap-3 text-navy font-bold">
+                                <i data-lucide="check-circle" class="text-purple-600 w-5 h-5"></i> 動画の資産化 (24時間働く採用広報)
+                            </div>
+                            <div class="flex items-center gap-3 text-navy font-bold">
+                                <i data-lucide="check-circle" class="text-purple-600 w-5 h-5"></i> ミスマッチ防止 (リアルな空気感)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-purple-50 rounded-2xl p-8 border border-purple-100">
+                        <h4 class="font-bold text-navy mb-4 text-center text-lg">O-kunの強み</h4>
+                        <ul class="space-y-4">
+                            <li class="bg-white p-4 rounded-xl shadow-sm border border-purple-100">
+                                <div class="font-bold text-purple-700 mb-1">Z世代リサーチ</div>
+                                <div class="text-xs text-gray-500">学生コミュニティを活用し、御社の「若者に刺さる魅力」を発掘・言語化します。</div>
+                            </li>
+                            <li class="bg-white p-4 rounded-xl shadow-sm border border-purple-100">
+                                <div class="font-bold text-purple-700 mb-1">感情を動かす設計</div>
+                                <div class="text-xs text-gray-500">単なる会社紹介ではなく、働く人の「想い」にフォーカスしたドキュメンタリー動画を制作。</div>
+                            </li>
+                            <li class="bg-white p-4 rounded-xl shadow-sm border border-purple-100">
+                                <div class="font-bold text-purple-700 mb-1">継続的なサポート</div>
+                                <div class="text-xs text-gray-500">法人登記済みの責任ある体制で、分析・改善まで伴走します。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-black text-navy mb-4 text-center">料金プラン (月額)</h3>
+                    <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                        <div class="border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow">
+                            <div class="text-center border-b border-gray-100 pb-4 mb-4">
+                                <h4 class="font-bold text-gray-500">STANDARD</h4>
+                                <div class="text-3xl font-black text-navy mt-2">200,000<span class="text-sm font-normal text-gray-400">円</span></div>
+                            </div>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li>・ショート動画 10本制作 (週2-3本)</li>
+                                <li>・Z世代トレンド構成案作成</li>
+                                <li>・訪問撮影 1回 (2時間以内)</li>
+                            </ul>
+                        </div>
+                        <div class="border-2 border-purple-500 rounded-2xl p-6 shadow-md relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">おすすめ</div>
+                            <div class="text-center border-b border-gray-100 pb-4 mb-4">
+                                <h4 class="font-bold text-purple-600">PREMIUM</h4>
+                                <div class="text-3xl font-black text-navy mt-2">400,000<span class="text-sm font-normal text-gray-400">円</span></div>
+                            </div>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li>・STANDARDプランの内容全て</li>
+                                <li>・<strong>会社PR動画 1本制作</strong> (1-2分/横型)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center"><a href="#contact" onclick="closeModal('modal-sns')" class="inline-block px-10 py-4 bg-navy text-white rounded-full font-bold shadow-xl hover:bg-blue-900">導入の相談をする</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: School -->
+    <div id="modal-school" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" onclick="closeModal('modal-school')"></div>
+        <div class="modal-content bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl relative z-10 shadow-2xl">
+            <div class="sticky top-0 bg-white/95 backdrop-blur z-20 px-8 py-6 border-b border-gray-100 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-navy flex items-center gap-3">
+                    <span class="w-3 h-8 bg-emerald-600 rounded-full"></span>
+                    スマホ教室事業 <span class="text-sm font-normal text-gray-500 bg-gray-100 px-3 py-1 rounded-full">地域デジタル活用支援</span>
+                </h2>
+                <button onclick="closeModal('modal-school')" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i data-lucide="x" class="w-6 h-6 text-gray-500"></i>
+                </button>
+            </div>
+            <div class="p-8 space-y-12">
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-2xl font-black text-navy mb-4">デジタルデバイドのない<br><span class="text-emerald-600">持続可能な地域社会</span>へ</h3>
+                        <p class="text-gray-600 leading-relaxed">シニア世代へのICT教育を通じて、情報格差の解消に取り組みます。デジタルツールを通じた「家族とのコミュニケーション」や「社会参加」を促進し、地域のウェルビーイング向上に寄与します。</p>
+                    </div>
+                     <div class="w-full md:w-1/2 grid grid-cols-1 gap-4">
+                         <div class="bg-slate-50 p-4 rounded-xl border border-gray-100">
+                             <div class="font-bold text-navy flex items-center gap-2"><i data-lucide="map-pin" class="text-emerald-600 w-4 h-4"></i> 地域密着・出張対応</div>
+                             <p class="text-xs text-gray-600 mt-1">地域の公民館やカフェ、ご自宅など生活圏内での出張レッスンを実施。</p>
+                         </div>
+                         <div class="bg-slate-50 p-4 rounded-xl border border-gray-100">
+                             <div class="font-bold text-navy flex items-center gap-2"><i data-lucide="heart-handshake" class="text-emerald-600 w-4 h-4"></i> 自治体・企業連携</div>
+                             <p class="text-xs text-gray-600 mt-1">自治体のDX推進事業や、企業のシニア向けイベントの企画運営。</p>
+                         </div>
+                     </div>
+                </div>
+                <div class="text-center"><a href="#contact" onclick="closeModal('modal-school')" class="inline-block px-8 py-3 bg-emerald-600 text-white rounded-full font-bold shadow-md hover:bg-emerald-700">協業・連携のご相談</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+        function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.modal.active').forEach(m => closeModal(m.id)); });
+    </script>
+</body>
+</html>
